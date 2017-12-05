@@ -1,14 +1,14 @@
 module Control(
-    Op_i,
-    RegDst_o,
-    ALUSrc_o,
+	Op_i,
+	RegDst_o,
+	ALUSrc_o,
 	MemtoReg_o,
-    RegWrite_o,
+	RegWrite_o,
 	MemWrite_o,
 	Branch_o,
 	Jump_o,
 	ExtOp_o,
-    ALUOp_o,
+	ALUOp_o,
 );
 
 // Ports

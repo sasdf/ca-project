@@ -27,7 +27,7 @@ begin
                 endcase
             end
 		// Or
-        2'b00: ALUCtrl_o = 3'b001;
+		2'b00: ALUCtrl_o = 3'b001;
 		// Add
 		2'b01: ALUCtrl_o = 3'b010;
 		// Subtract
