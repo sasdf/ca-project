@@ -1,57 +1,57 @@
 module Forward(
-    MemR_i,
-    MemW_i,
-    ExW_i,
-    ExR_i,
+    MemRegisterRd_i,
+    MemRegWrite_i,
+    ExRegWrite_i,
+    ExRegisterRd_i,
     IdRs_i,
     IdRt_i,
-    ForwardA_o,
-    ForwardB_o
+    ForwardRs_o,
+    ForwardRt_o
 );
 
 // Ports
-input            MemW_i, ExW_i;
-input  [4:0]     MemR_i, ExR_i, IdRs_i, IdRt_i;
-output [2:0]     ForwardA_o, ForwardB_o;
+input            MemRegWrite_i, ExRegWrite_i;
+input  [4:0]     MemRegisterRd_i, ExRegisterRd_i, IdRs_i, IdRt_i;
+output [2:0]     ForwardRs_o, ForwardRt_o;
 
 // Wires & Registers
-reg    [2:0]     ForwardA_o, ForwardB_o;
+reg    [2:0]     ForwardRs_o, ForwardRt_o;
 
-always@(MemR_i, MemW_i, ExW_i, ExR_i, IdRs_i, IdRt_i)
+always@(*)
 begin 
-    if (ExW_i
-        && ExR_i != 0
-        && ExR_i == IdRs_i
+    if (ExRegWrite_i
+        && ExRegisterRd_i != 0
+        && ExRegisterRd_i == IdRs_i
         )
-        ForwardA_o[1] = 1'b1;
+        ForwardRs_o[1] = 1'b1;
     else
-        ForwardA_o[1] = 1'b0;
+        ForwardRs_o[1] = 1'b0;
 
-    if (ExW_i
-        && ExR_i != 0
-        && ExR_i == IdRt_i
+    if (ExRegWrite_i
+        && ExRegisterRd_i != 0
+        && ExRegisterRd_i == IdRt_i
         )
-        ForwardB_o[1] = 1'b1;
+        ForwardRt_o[1] = 1'b1;
     else
-        ForwardB_o[1] = 1'b0;
+        ForwardRt_o[1] = 1'b0;
 
-    if (MemW_i
-        && MemR_i != 0
-        && ExR_i != IdRs_i
-        && MemR_i == IdRs_i
+    if (MemRegWrite_i
+        && MemRegisterRd_i != 0
+        && ExRegisterRd_i != IdRs_i
+        && MemRegisterRd_i == IdRs_i
         )
-        ForwardA_o[0] = 1'b1;
+        ForwardRs_o[0] = 1'b1;
     else
-        ForwardA_o[0] = 1'b0;
+        ForwardRs_o[0] = 1'b0;
 
-    if (MemW_i
-        && MemR_i != 0
-        && ExR_i != IdRt_i
-        && MemR_i == IdRt_i
+    if (MemRegWrite_i
+        && MemRegisterRd_i != 0
+        && ExRegisterRd_i != IdRt_i
+        && MemRegisterRd_i == IdRt_i
         )
-        ForwardB_o[0] = 1'b1;
+        ForwardRt_o[0] = 1'b1;
     else
-        ForwardB_o[0] = 1'b0;
+        ForwardRt_o[0] = 1'b0;
 end
 
 endmodule
