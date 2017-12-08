@@ -5,6 +5,7 @@ module ID_EX
     ALUSrc_i,
     MemtoReg_i,
     RegWrite_i,
+	MemRead_i,
     MemWrite_i,
     ALUop_i,
     RS_i,
@@ -15,6 +16,7 @@ module ID_EX
     ALUSrc_o,
     MemtoReg_o,
     RegWrite_o,
+	MemRead_o,
     MemWrite_o,
     ALUop_o,
     RS_o,
@@ -29,6 +31,7 @@ input RegDst_i;
 input ALUSrc_i;
 input MemtoReg_i;
 input RegWrite_i;
+input MemRead_i;
 input MemWrite_i;
 input ALUop_i;
 input [31:0] RS_i;
@@ -39,6 +42,7 @@ output RegDst_o;
 output ALUSrc_o;
 output MemtoReg_o;
 output RegWrite_o;
+output MemRead_o;
 output MemWrite_o;
 output ALUop_o;
 output [31:0] RS_o;
@@ -50,6 +54,7 @@ reg RegDst_r;
 reg ALUSrc_r;
 reg MemtoReg_r;
 reg RegWrite_r;
+reg MemRead_r;
 reg MemWrite_r;
 reg ALUop_r;
 reg [31:0] RS_r;
@@ -61,6 +66,7 @@ assign RegDst_o = RegDst_r;
 assign ALUSrc_o = ALUSrc_r;
 assign MemtoReg_o = MemtoReg_r;
 assign RegWrite_o = RegWrite_r;
+assign MemRead_o  = MemRead_r;
 assign MemWrite_o = MemWrite_r;
 assign ALUop_o = ALUop_r;
 assign RS_o = RS_r;
@@ -73,6 +79,7 @@ always@(posedge clk_i) begin
     ALUSrc_r <= ALUSrc_i;
     MemtoReg_r <= MemtoReg_i;
     RegWrite_r <= RegWrite_i;
+	MemRead_r <= MemRead_i;
     MemWrite_r <= MemWrite_i;
     ALUop_r <= ALUop_i;
     RS_r <= RS_i;

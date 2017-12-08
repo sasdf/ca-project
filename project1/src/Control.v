@@ -4,6 +4,7 @@ module Control(
 	ALUSrc_o,
 	MemtoReg_o,
 	RegWrite_o,
+	MemRead_o,
 	MemWrite_o,
 	Branch_o,
 	Jump_o,
@@ -30,6 +31,7 @@ begin
 			ALUSrc_o   = 1'b0;
 			MemtoReg_o = 1'b0;
 			RegWrite_o = 1'b1;
+			MemRead_o  = 1'b0;
 			MemWrite_o = 1'b0;
 			Branch_o   = 1'b0;
 			Jump_o     = 1'b0;
@@ -43,6 +45,7 @@ begin
 			ALUSrc_o   = 1'b1;
 			MemtoReg_o = 1'b0;
 			RegWrite_o = 1'b1;
+			MemRead_o  = 1'b0;
 			MemWrite_o = 1'b0;
 			Branch_o   = 1'b0;
 			Jump_o     = 1'b0;
@@ -56,6 +59,7 @@ begin
 			ALUSrc_o   = 1'b1;
 			MemtoReg_o = 1'b1;
 			RegWrite_o = 1'b1;
+			MemRead_o  = 1'b1;
 			MemWrite_o = 1'b0;
 			Branch_o   = 1'b0;
 			Jump_o     = 1'b0;
@@ -69,6 +73,7 @@ begin
 			ALUSrc_o   = 1'b1;
 			// MemtoReg_o = don't care
 			RegWrite_o = 1'b0;
+			MemRead_o  = 1'b0;
 			MemWrite_o = 1'b1;
 			Branch_o   = 1'b0;
 			Jump_o     = 1'b0;
@@ -82,6 +87,7 @@ begin
 			ALUSrc_o   = 1'b0;
 			// MemtoReg_o = don't care
 			RegWrite_o = 1'b0;
+			MemRead_o  = 1'b0;
 			MemWrite_o = 1'b0;
 			Branch_o   = 1'b1;
 			Jump_o     = 1'b0;
@@ -95,6 +101,7 @@ begin
 			// ALUSrc_o   = don't care
 			// MemtoReg_o = don't care
 			RegWrite_o = 1'b0;
+			MemRead_o  = 1'b0;
 			MemWrite_o = 1'b0;
 			Branch_o   = 1'b0;
 			Jump_o     = 1'b1;
