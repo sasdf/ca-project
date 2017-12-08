@@ -14,11 +14,11 @@ module Control(
 
 // Ports
 input  [5:0]     Op_i;
-output RegDst_o, ALUSrc_o, MemtoReg_o, RegWrite_o, MemWrite_o, Branch_o, Jump_o, ExtOp_o;
+output RegDst_o, ALUSrc_o, MemtoReg_o, RegWrite_o, MemRead_o, MemWrite_o, Branch_o, Jump_o, ExtOp_o;
 output [1:0]     ALUOp_o;
 
 // Wires & Registers
-reg    RegDst_o, ALUSrc_o, MemtoReg_o, RegWrite_o, MemWrite_o, Branch_o, Jump_o, ExtOp_o;
+reg    RegDst_o, ALUSrc_o, MemtoReg_o, RegWrite_o, MemRead_o, MemWrite_o, Branch_o, Jump_o, ExtOp_o;
 reg    [1:0]     ALUOp_o;
 
 always@(Op_i)
