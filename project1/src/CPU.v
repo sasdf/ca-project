@@ -34,8 +34,8 @@ Adder Add_PC(
 
 
 MUX32 MUX_Branch(
-	.data1_i	(Add_Branch.data_o),
-	.data2_i	(Add_PC.data_o),
+	.data1_i	(Add_PC.data_o),
+	.data2_i	(Add_Branch.data_o),
 	.select_i	((Control.Branch_o & RegisterEq.data_o)),
 	.data_o		()
 );
