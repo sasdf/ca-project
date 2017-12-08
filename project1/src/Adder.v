@@ -1,6 +1,6 @@
 module Adder(
-    data1_in,
-    data2_in,
+    data1_i,
+    data2_i,
     data_o,
 );
 
