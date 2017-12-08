@@ -91,8 +91,8 @@ begin
 			MemWrite_o = 1'b0;
 			Branch_o   = 1'b1;
 			Jump_o     = 1'b0;
-			// ExtOp_o    = don't care
-			ALUop_o    = 2'b10;
+			// EOtOp_o    = don't care
+			ALUOp_o    = 2'b10;
 		end
 		// jump (ALUop = don't care)
 		6'b000010:

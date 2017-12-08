@@ -109,7 +109,7 @@ Equal RegisterEq(
 
 
 Sign_Extend Sign_Extend(
-	.ExtOp_i	(Control.ExtOp_i),
+	.ExtOp_i	(Control.ExtOp_o),
     .data_i     (Instruction_Memory.instr_o[15:0]),
     .data_o     ()
 );
@@ -127,12 +127,11 @@ Adder Add_Branch(
 	.data_o		()
 );
 
-
 HazardDetection HazardDetection(
 	.ID_EX_MemRead_i	(ID_EX.MemRead_o),
-	.ID_EX_RT_i			(ID_EX.RT_o),
-	.IF_ID_RS_i			(IF_ID.RS_o),
-	.IF_ID_RT_i			(IF_ID.RT_o),
+	.ID_EX_RT_i			(ID_EX.RTAddr_o),
+	.IF_ID_RS_i			(_instr[25:21]),
+	.IF_ID_RT_i			(_instr[20:16]),
 	.ID_EX_NOP_o		(),
 	.IF_ID_Write_o		(),
 	.PC_Write_o			()
@@ -243,7 +242,7 @@ EX_MEM EX_MEM(
     .RegWrite_i	(ID_EX.RegWrite_o),
     .MemWrite_i	(ID_EX.MemWrite_o),
     .Result_i	(ALU.data_o),
-    .Data_i		(MUX_RegDst.data_o),
+    .Data_i		(Forward_Rt.data_o),
     .RD_i		(MUX_RegDst.data_o),
     .MemtoReg_o	(),
     .RegWrite_o	(),

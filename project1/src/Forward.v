@@ -12,10 +12,10 @@ module Forward(
 // Ports
 input            MemRegWrite_i, ExRegWrite_i;
 input  [4:0]     MemRegisterRd_i, ExRegisterRd_i, IdRs_i, IdRt_i;
-output [2:0]     ForwardRs_o, ForwardRt_o;
+output [1:0]     ForwardRs_o, ForwardRt_o;
 
 // Wires & Registers
-reg    [2:0]     ForwardRs_o, ForwardRt_o;
+reg    [1:0]     ForwardRs_o, ForwardRt_o;
 
 always@(*)
 begin 
