@@ -162,7 +162,7 @@ ID_EX ID_EX(
     .ALUop_i		(MUX8.data_o[1:0]),
     .RS_i			(Registers.RSdata_o),
     .RT_i			(Registers.RTdata_o),
-    .SignExtend_i	(SignExtend.data_o),
+    .SignExtend_i	(Sign_Extend.data_o),
 	.RSAddr_i		(_instr[25:21]),
 	.RTAddr_i		(_instr[20:16]),
     .RDAddr_i		(_instr[15:11]),
@@ -255,10 +255,12 @@ EX_MEM EX_MEM(
 
 MEM_WB MEM_WB(
     .clk_i		(clk_i),
+    .MemtoReg_i	(EX_MEM.MemtoReg_o),
     .RegWrite_i	(EX_MEM.RegWrite_o),
     .Data_i		(EX_MEM.Data_o),
     .Result_i	(EX_MEM.Result_o),
     .RD_i		(EX_MEM.RD_o),
+    .MemtoReg_o	(),
     .RegWrite_o	(),
     .Data_o		(),
     .Result_o	(),
