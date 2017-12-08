@@ -43,6 +43,8 @@ initial begin
     Reset = 1;
     Start = 1;
         
+    $dumpfile("dff.vcd");
+    $dumpvars;
     
 end
   
