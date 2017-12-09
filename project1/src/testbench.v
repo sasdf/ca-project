@@ -42,7 +42,10 @@ initial begin
     // Open output file
     outfile = $fopen("output.txt") | 1;
     
-    Clk = 0;
+    // Set Input n into data memory at 0x00
+    CPU.Data_Memory.memory[0] = 8'h5;       // n = 5 for example
+    
+	Clk = 0;
     Reset = 0;
     Start = 0;
     
