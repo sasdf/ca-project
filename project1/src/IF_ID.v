@@ -18,7 +18,7 @@ output [31:0] pc_o;
 output [31:0] instr_o;
 
 reg [31:0] pc_r;
-reg [31:0] instr_r;
+reg [31:0] instr_r=0;
 
 assign pc_o = pc_r;
 assign instr_o = instr_r;

@@ -58,7 +58,7 @@ assign	_pc = IF_ID.pc_o;
 
 
 Control Control(
-    .Op_i       (Instruction_Memory.instr_o[31:26]),
+    .Op_i       (_instr[31:26]),
     .RegDst_o   (),
     .ALUSrc_o   (),
 	.MemtoReg_o (),

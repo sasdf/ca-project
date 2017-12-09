@@ -20,18 +20,22 @@ input               RegWrite_i;
 output  [31:0]      RSdata_o; 
 output  [31:0]      RTdata_o;
 
+wire write;
+
 // Register File
 reg     [31:0]      register        [0:31];
 
-// Read Data      
-//assign  RSdata_o = RSaddr_i==RDaddr_i?RDdata_i:register[RSaddr_i];
-//assign  RTdata_o = RTaddr_i==RDaddr_i?RDdata_i:register[RTaddr_i];
-assign  RSdata_o = register[RSaddr_i];
-assign  RTdata_o = register[RTaddr_i];
+// Read Data
+assign  write = RegWrite & |RDdata_i;
+
+assign  RSdata_o = write&&RSaddr_i==RDaddr_i?RDdata_i:register[RSaddr_i];
+assign  RTdata_o = write&&RTaddr_i==RDaddr_i?RDdata_i:register[RTaddr_i];
+//assign  RSdata_o = register[RSaddr_i];
+//assign  RTdata_o = register[RTaddr_i];
 
 // Write Data   
 always@(posedge clk_i) begin
-    if(RegWrite_i)
+    if(write)
         register[RDaddr_i] <= RDdata_i;
 end
    
