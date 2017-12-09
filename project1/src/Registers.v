@@ -26,7 +26,7 @@ wire write;
 reg     [31:0]      register        [0:31];
 
 // Read Data
-assign  write = RegWrite & |RDdata_i;
+assign  write = RegWrite_i & |RDaddr_i;
 
 assign  RSdata_o = write&&RSaddr_i==RDaddr_i?RDdata_i:register[RSaddr_i];
 assign  RTdata_o = write&&RTaddr_i==RDaddr_i?RDdata_i:register[RTaddr_i];
