@@ -223,7 +223,7 @@ MUX_Forward Forward_Rt(
 MUX32 MUX_ALUSrc(
     .data1_i    (Forward_Rt.data_o),
     .data2_i    (ID_EX.SignExtend_o),
-    .select_i   (Control.ALUSrc_o),
+    .select_i   (ID_EX.ALUSrc_o),
     .data_o     ()
 );
 
