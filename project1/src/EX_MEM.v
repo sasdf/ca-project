@@ -31,8 +31,8 @@ output [31:0] Data_o;
 output [4:0] RD_o;
 
 reg MemtoReg_r;
-reg RegWrite_r;
-reg MemWrite_r;
+reg RegWrite_r=0;
+reg MemWrite_r=0;
 reg [31:0] Result_r;
 reg [31:0] Data_r;
 reg [4:0] RD_r;

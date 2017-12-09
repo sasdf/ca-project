@@ -20,6 +20,8 @@ input               RegWrite_i;
 output  [31:0]      RSdata_o; 
 output  [31:0]      RTdata_o;
 
+wire write;
+
 // Register File
 reg     [31:0]      register        [0:31];
 

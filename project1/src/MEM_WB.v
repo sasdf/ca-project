@@ -19,6 +19,7 @@ input RegWrite_i;
 input [31:0] Result_i;
 input [31:0] Data_i;
 input [4:0] RD_i;
+
 output reg MemtoReg_o = 1'b0;
 output reg RegWrite_o = 1'b0;
 output reg [31:0] Result_o = 32'b0;
