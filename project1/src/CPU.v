@@ -21,6 +21,7 @@ PC PC(
     .clk_i      (clk_i),
     .rst_i      (rst_i),
     .start_i    (start_i),
+	.PC_Write_i	(HazardDetection.PC_Write_o),
     .pc_i       (MUX_Jump.data_o),
     .pc_o       ()
 );
@@ -58,7 +59,7 @@ assign	_pc = IF_ID.pc_o;
 
 
 Control Control(
-    .Op_i       (Instruction_Memory.instr_o[31:26]),
+    .Op_i       (_instr[31:26]),
     .RegDst_o   (),
     .ALUSrc_o   (),
 	.MemtoReg_o (),
@@ -89,8 +90,8 @@ MUX8 MUX8(
 
 Registers Registers(
     .clk_i      (clk_i),
-    .RSaddr_i   (IF_ID.instr_o[25:21]),
-    .RTaddr_i   (IF_ID.instr_o[20:16]),
+    .RSaddr_i   (_instr[25:21]),
+    .RTaddr_i   (_instr[20:16]),
     .RDaddr_i   (MEM_WB.RD_o),
     .RDdata_i   (MUX_WriteReg.data_o),
     .RegWrite_i (MEM_WB.RegWrite_o),
@@ -174,9 +175,11 @@ ID_EX ID_EX(
     .RDAddr_o		()
 );
 
+wire [31:0] _SignExtend;
+assign _SignExtend = ID_EX.SignExtend_o;
 
 ALU_Control ALU_Control(
-    .funct_i    (ID_EX.SignExtend_o[5:0]),
+    .funct_i    (_SignExtend[5:0]),
     .ALUOp_i    (ID_EX.ALUop_o),
     .ALUCtrl_o  ()
 );
@@ -223,7 +226,7 @@ MUX_Forward Forward_Rt(
 MUX32 MUX_ALUSrc(
     .data1_i    (Forward_Rt.data_o),
     .data2_i    (ID_EX.SignExtend_o),
-    .select_i   (Control.ALUSrc_o),
+    .select_i   (ID_EX.ALUSrc_o),
     .data_o     ()
 );
 

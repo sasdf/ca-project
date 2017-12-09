@@ -19,29 +19,19 @@ input RegWrite_i;
 input [31:0] Result_i;
 input [31:0] Data_i;
 input [4:0] RD_i;
-output MemtoReg_o;
-output RegWrite_o;
-output [31:0] Result_o;
-output [31:0] Data_o;
-output [4:0] RD_o;
-
-reg MemtoReg_r;
-reg RegWrite_r;
-reg [31:0] Result_r;
-reg [31:0] Data_r;
-reg [4:0] RD_r;
-
-assign MemtoReg_o = MemtoReg_r;
-assign RegWrite_o = RegWrite_r;
-assign Data_o = Data_r;
-assign Result_o = Result_r;
-assign RD_o = RD_r;
+output reg MemtoReg_o = 1'b0;
+output reg RegWrite_o = 1'b0;
+output reg [31:0] Result_o = 32'b0;
+output reg [31:0] Data_o = 32'b0;
+output reg [4:0] RD_o = 32'b0;
 
 always@(posedge clk_i) begin
-    MemtoReg_r = MemtoReg_i;
-    RegWrite_r <= RegWrite_i;
-    Data_r <= Data_i;
-    Result_r <= Result_i;
-    RD_r <= RD_i;
+    MemtoReg_o <= MemtoReg_i;
+	if(RegWrite_i == 1'b1 || RegWrite_i == 1'b0) begin
+		RegWrite_o <= RegWrite_i;
+		RD_o <= RD_i;
+		Data_o <= Data_i;
+		Result_o <= Result_i;
+	end
 end
 endmodule

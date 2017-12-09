@@ -11,7 +11,7 @@ input  select_i;
 output [31:0] data_o;
 
 // Wires & Registers
-reg    [31:0] data_o;
+reg    [31:0] data_o = 32'b0;
 
 always@(data1_i or data2_i or select_i)
 begin
