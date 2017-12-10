@@ -1,4 +1,4 @@
-module MUX_Forward(
+module MUXForward(
 	data0_i,
 	data1_i,
 	data2_i,
@@ -6,7 +6,9 @@ module MUX_Forward(
 	data_o
 );
 
-input	[31:0]	data0_i, data1_i, data2_i;
+input	[31:0]	data0_i;
+input	[31:0]	data1_i;
+input	[31:0]	data2_i;
 input	[1:0]	select_i;
 output	[31:0]	data_o;
 

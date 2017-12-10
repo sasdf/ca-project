@@ -1,4 +1,4 @@
-module Instruction_Memory
+module InstructionMemory
 (
     addr_i, 
     instr_o
