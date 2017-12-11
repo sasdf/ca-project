@@ -13,10 +13,10 @@
 `include "MUX/MUX8.v"
 `include "MUX/MUX32.v"
 `include "MUX/MUXForward.v"
-`include "PipelineMemory/IF_ID.v"
-`include "PipelineMemory/ID_EX.v"
-`include "PipelineMemory/EX_MEM.v"
-`include "PipelineMemory/MEM_WB.v"
+`include "PipelineRegister/IF_ID.v"
+`include "PipelineRegister/ID_EX.v"
+`include "PipelineRegister/EX_MEM.v"
+`include "PipelineRegister/MEM_WB.v"
 
 module CPU
 (
