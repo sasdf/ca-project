@@ -59,7 +59,7 @@ initial begin
 end
   
 always@(posedge Clk) begin
-    if(counter == 30)    // stop after 30 cycles
+    if(counter == 80)    // stop after 30 cycles
         $stop;
         
     if(CPU.HazardDetection.ID_EX_nop_o == 1 && CPU.Control.jump_o == 0 && CPU.Control.branch_o == 0)stall = stall + 1;

@@ -66,7 +66,7 @@ IF_ID IF_ID(
 	.clk_i		(clk_i),
 	.flush_i	((Control.branch_o & RegisterEq.data_o) | Control.jump_o),
 	.hazard_i	(~HazardDetection.IF_ID_write_o),
-	.pc_i		(PC.pc_o),
+	.pc_i		(AddPC.data_o),
 	.instr_i	(InstructionMemory.instr_o),
 	.pc_o		(),
 	.instr_o	()
