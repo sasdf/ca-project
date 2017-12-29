@@ -14,6 +14,7 @@ module ID_EX
     RSaddr_i,
     RTaddr_i,
     RDaddr_i,
+    stall_i,
     regdst_o,
     alusrc_o,
     memtoreg_o,
@@ -37,6 +38,7 @@ input				memtoreg_i;
 input				regwrite_i; 
 input				memread_i; 
 input				memwrite_i;
+input				stall_i;
 input [1:0]			aluop_i;
 input [31:0]		RS_i;
 input [31:0]		RT_i;
@@ -60,18 +62,20 @@ output reg [4:0]	RTaddr_o;
 output reg [4:0]	RDaddr_o;
 
 always@(posedge clk_i) begin
-    regdst_o		<= regdst_i;
-    alusrc_o		<= alusrc_i;
-    memtoreg_o		<= memtoreg_i;
-    regwrite_o		<= regwrite_i;
-	memread_o		<= memread_i;
-    memwrite_o		<= memwrite_i;
-    aluop_o			<= aluop_i;
-    RS_o			<= RS_i;
-    RT_o			<= RT_i;
-    signextend_o	<= signextend_i;
-    RSaddr_o		<= RSaddr_i;
-    RTaddr_o		<= RTaddr_i;
-    RDaddr_o		<= RDaddr_i;
+    if (~stall_i) begin
+        regdst_o		<= regdst_i;
+        alusrc_o		<= alusrc_i;
+        memtoreg_o		<= memtoreg_i;
+        regwrite_o		<= regwrite_i;
+        memread_o		<= memread_i;
+        memwrite_o		<= memwrite_i;
+        aluop_o			<= aluop_i;
+        RS_o			<= RS_i;
+        RT_o			<= RT_i;
+        signextend_o	<= signextend_i;
+        RSaddr_o		<= RSaddr_i;
+        RTaddr_o		<= RTaddr_i;
+        RDaddr_o		<= RDaddr_i;
+    end
 end
 endmodule

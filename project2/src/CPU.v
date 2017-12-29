@@ -17,6 +17,7 @@
 `include "PipelineRegister/ID_EX.v"
 `include "PipelineRegister/EX_MEM.v"
 `include "PipelineRegister/MEM_WB.v"
+`include "DCache/dcache_top.v"
 
 module CPU
 (
@@ -43,6 +44,7 @@ PC PC(
     .start_i    (start_i),
 	.pc_write_i	(HazardDetection.pc_write_o),
     .pc_i       (MUXJump.data_o),
+    .stall_i    (dcache.p1_stall_o),
     .pc_o       ()
 );
 
@@ -68,6 +70,7 @@ IF_ID IF_ID(
 	.hazard_i	(~HazardDetection.IF_ID_write_o),
 	.pc_i		(AddPC.data_o),
 	.instr_i	(InstructionMemory.instr_o),
+    .stall_i    (dcache.p1_stall_o),
 	.pc_o		(),
 	.instr_o	()
 );
@@ -175,6 +178,7 @@ ID_EX ID_EX(
 	.RSaddr_i		(IF_ID.instr_o[25:21]),
 	.RTaddr_i		(IF_ID.instr_o[20:16]),
     .RDaddr_i		(IF_ID.instr_o[15:11]),
+    .stall_i        (dcache.p1_stall_o),
     .regdst_o		(),
     .alusrc_o		(),
     .memtoreg_o		(),
@@ -259,6 +263,7 @@ EX_MEM EX_MEM(
     .result_i	(ALU.data_o),
     .data_i		(ForwardRT.data_o),
     .RD_i		(MUXRegDst.data_o),
+    .stall_i    (dcache.p1_stall_o),
     .memtoreg_o	(),
     .regwrite_o	(),
     .memwrite_o	(),
@@ -268,14 +273,42 @@ EX_MEM EX_MEM(
 );
 
 
-DataMemory DataMemory(
-    .clk_i      (clk_i),
-    .memwrite_i (EX_MEM.memwrite_o),
-    .memread_i  (1'b1),
-    .addr_i     (EX_MEM.result_o),
-    .data_i     (EX_MEM.data_o),
-    .data_o     ()
+Data_Memory DataMemory
+(
+    .clk_i    (clk_i),
+	.rst_i    (rst_i),
+    .addr_i   (dcache.mem_addr_o),
+	.data_i   (dcache.mem_data_o),
+	.enable_i (dcache.mem_enable_o),
+	.write_i  (dcache.mem_write_o),
+	.ack_o    (),
+	.data_o   ()
 );
+
+
+dcache_top dcache
+(
+    // System clock, reset and stall
+	.clk_i(clk_i), 
+	.rst_i(rst_i),
+	
+	// to Data Memory interface		
+	.mem_data_i(mem_data_i), 
+	.mem_ack_i(mem_ack_i), 	
+	.mem_data_o(mem_data_o), 
+	.mem_addr_o(mem_addr_o), 	
+	.mem_enable_o(mem_enable_o), 
+	.mem_write_o(mem_write_o), 
+	
+	// to CPU interface	
+	.p1_data_i     (EX_MEM.data_o),
+	.p1_addr_i     (EX_MEM.result_o),
+	.p1_MemRead_i  (1'b1),
+	.p1_MemWrite_i (EX_MEM.memwrite_o),
+	.p1_data_o     (),
+	.p1_stall_o    ()
+);
+
 
 
 MEM_WB MEM_WB(
@@ -285,6 +318,7 @@ MEM_WB MEM_WB(
     .data_i		(DataMemory.data_o),
     .result_i	(EX_MEM.result_o),
     .RD_i		(EX_MEM.RD_o),
+    .stall_i    (dcache.p1_stall_o),
     .memtoreg_o	(),
     .regwrite_o	(),
     .data_o		(),
