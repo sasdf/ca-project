@@ -47,6 +47,8 @@ Data_Memory Data_Memory
 );
   
 initial begin
+    $dumpfile("output.vcd");
+    $dumpvars;
 	counter = 1;
 	
 	// initialize instruction memory (2KB)

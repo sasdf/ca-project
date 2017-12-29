@@ -22,7 +22,9 @@ output reg [31:0]	instr_o = 32'd0;
 
 always@(posedge clk_i) 
 begin
-    if (~stall_i) begin
+    if (stall_i) begin
+    end
+    else begin
         pc_o	<= flush_i ? 32'b0 : hazard_i ? pc_o	: pc_i;
         instr_o <= flush_i ? 32'b0 : hazard_i ? instr_o : instr_i;
     end

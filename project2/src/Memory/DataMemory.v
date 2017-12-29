@@ -39,7 +39,7 @@ assign	addr = addr_i>>5;
 assign	data_o = data;
 
 //Controller 
-always@(posedge clk_i) begin
+always@(posedge clk_i or negedge rst_i) begin
 	if(~rst_i) begin
 		state <= STATE_IDLE;
 	end

@@ -51,7 +51,7 @@ output reg 			regdst_o;
 output reg			alusrc_o; 
 output reg			memtoreg_o; 
 output reg			regwrite_o = 0; 
-output reg			memread_o; 
+output reg			memread_o = 0;
 output reg			memwrite_o = 0;
 output reg [1:0]	aluop_o;
 output reg [31:0]	RS_o; 
@@ -62,7 +62,9 @@ output reg [4:0]	RTaddr_o;
 output reg [4:0]	RDaddr_o;
 
 always@(posedge clk_i) begin
-    if (~stall_i) begin
+    if (stall_i) begin
+    end
+    else begin
         regdst_o		<= regdst_i;
         alusrc_o		<= alusrc_i;
         memtoreg_o		<= memtoreg_i;

@@ -271,6 +271,7 @@ EX_MEM EX_MEM(
     .memtoreg_i	(ID_EX.memtoreg_o),
     .regwrite_i	(ID_EX.regwrite_o),
     .memwrite_i	(ID_EX.memwrite_o),
+    .memread_i	(ID_EX.memread_o),
     .result_i	(ALU.data_o),
     .data_i		(ForwardRT.data_o),
     .RD_i		(MUXRegDst.data_o),
@@ -301,7 +302,7 @@ dcache_top dcache
 	// to CPU interface	
 	.p1_data_i     (EX_MEM.data_o),
 	.p1_addr_i     (EX_MEM.result_o),
-	.p1_MemRead_i  (1'b1),
+	.p1_MemRead_i  (EX_MEM.memread_o),
 	.p1_MemWrite_i (EX_MEM.memwrite_o),
 	.p1_data_o     (),
 	.p1_stall_o    ()

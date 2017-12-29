@@ -29,7 +29,9 @@ output reg [31:0]	data_o = 32'b0;
 output reg [4:0]	RD_o = 5'b0;
 
 always@(posedge clk_i) begin
-    if (~stall_i) begin
+    if (stall_i) begin
+    end
+    else begin
         memtoreg_o <= memtoreg_i;
         if(regwrite_i == 1'b1 || regwrite_i == 1'b0) begin
             regwrite_o	<= regwrite_i;
