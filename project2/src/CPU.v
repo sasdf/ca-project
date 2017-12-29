@@ -3,7 +3,6 @@
 `include "ControlUnit/Forward.v"
 `include "ControlUnit/HazardDetection.v"
 `include "Memory/InstructionMemory.v"
-`include "Memory/DataMemory.v"
 `include "Arithmetic/ALU.v"
 `include "Arithmetic/Adder.v"
 `include "Arithmetic/Equal.v"
@@ -23,13 +22,25 @@ module CPU
 (
     clk_i,
     rst_i,
-    start_i
+    start_i,
+    mem_data_i,
+    mem_ack_i,
+    mem_data_o,
+    mem_addr_o,
+    mem_enable_o,
+    mem_write_o
 );
 
 // Ports
 input               clk_i;
 input               rst_i;
 input               start_i;
+input   [256-1:0]   mem_data_i;
+input               mem_ack_i;
+output  [256-1:0]   mem_data_o;
+output  [32-1:0]    mem_addr_o;
+output              mem_enable_o;
+output              mem_write_o;
 
 
 InstructionMemory InstructionMemory(
@@ -273,19 +284,6 @@ EX_MEM EX_MEM(
 );
 
 
-Data_Memory DataMemory
-(
-    .clk_i    (clk_i),
-	.rst_i    (rst_i),
-    .addr_i   (dcache.mem_addr_o),
-	.data_i   (dcache.mem_data_o),
-	.enable_i (dcache.mem_enable_o),
-	.write_i  (dcache.mem_write_o),
-	.ack_o    (),
-	.data_o   ()
-);
-
-
 dcache_top dcache
 (
     // System clock, reset and stall
@@ -315,7 +313,7 @@ MEM_WB MEM_WB(
     .clk_i		(clk_i),
     .memtoreg_i	(EX_MEM.memtoreg_o),
     .regwrite_i	(EX_MEM.regwrite_o),
-    .data_i		(DataMemory.data_o),
+    .data_i		(dcache.p1_data_o),
     .result_i	(EX_MEM.result_o),
     .RD_i		(EX_MEM.RD_o),
     .stall_i    (dcache.p1_stall_o),
