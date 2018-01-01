@@ -23,23 +23,23 @@ output	[255:0] data_o;
 
 // Memory
 reg		[255:0]		memory 			[0:511];	//16KB
-reg		[3:0]		  count;
+reg		[3:0]		  count = 4'd0;
 wire				    ack;
-reg					write_reg;
+reg					write_reg = 0;
 reg		[255:0]		data;
 wire	[26:0]		addr;
 
 parameter STATE_IDLE			= 1'h0,
 			STATE_WAIT			= 1'h1;			
 
-reg		[1:0]		state;
+reg		[1:0]		state = STATE_IDLE;
 
 assign	ack_o = ack;
 assign	addr = addr_i>>5;
 assign	data_o = data;
 
 //Controller 
-always@(posedge clk_i or negedge rst_i) begin
+always@(posedge clk_i) begin
 	if(~rst_i) begin
 		state <= STATE_IDLE;
 	end
