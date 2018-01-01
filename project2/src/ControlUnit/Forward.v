@@ -16,40 +16,20 @@ input  [4:0]		MEM_WB_RD_i;
 input  [4:0]		EX_MEM_RD_i;
 input  [4:0]		ID_EX_RS_i;
 input  [4:0]		ID_EX_RT_i;
-output reg [1:0]    forward_RS_o;
-output reg [1:0]    forward_RT_o;
+output [1:0]        forward_RS_o;
+output [1:0]        forward_RT_o;
 
-always@(*)
-begin 
-    if (EX_MEM_regwrite_i
-        && EX_MEM_RD_i != 0
-        && EX_MEM_RD_i == ID_EX_RS_i)
-        forward_RS_o[1] = 1'b1;
-    else
-        forward_RS_o[1] = 1'b0;
+wire memRS ;
+wire wbRS ;
+wire memRT ;
+wire wbRT ;
 
-    if (EX_MEM_regwrite_i
-        && EX_MEM_RD_i != 0
-        && EX_MEM_RD_i == ID_EX_RT_i)
-        forward_RT_o[1] = 1'b1;
-    else
-        forward_RT_o[1] = 1'b0;
+assign memRS = EX_MEM_regwrite_i && EX_MEM_RD_i != 0 && EX_MEM_RD_i == ID_EX_RS_i ;
+assign wbRS  = MEM_WB_regwrite_i && MEM_WB_RD_i != 0 && MEM_WB_RD_i == ID_EX_RS_i ;
+assign memRT = EX_MEM_regwrite_i && EX_MEM_RD_i != 0 && EX_MEM_RD_i == ID_EX_RT_i ;
+assign wbRT  = MEM_WB_regwrite_i && MEM_WB_RD_i != 0 && MEM_WB_RD_i == ID_EX_RT_i ;
 
-    if (MEM_WB_regwrite_i
-        && MEM_WB_RD_i != 0
-        && EX_MEM_RD_i != ID_EX_RS_i
-        && MEM_WB_RD_i == ID_EX_RS_i)
-        forward_RS_o[0] = 1'b1;
-    else
-        forward_RS_o[0] = 1'b0;
-
-    if (MEM_WB_regwrite_i
-        && MEM_WB_RD_i != 0
-        && EX_MEM_RD_i != ID_EX_RT_i
-        && MEM_WB_RD_i == ID_EX_RT_i)
-        forward_RT_o[0] = 1'b1;
-    else
-        forward_RT_o[0] = 1'b0;
-end
+assign forward_RS_o = memRS ? 2'd2 : wbRS ? 2'd1 : 2'd0 ;
+assign forward_RT_o = memRT ? 2'd2 : wbRT ? 2'd1 : 2'd0 ;
 
 endmodule
